@@ -9,19 +9,18 @@ echo "Profesor 1 Nombre: " . $profesor1->nombre . "<br>";
 
 function enviarTrabajo($remitente, $destinatario, $trabajo)
 {
-
-    $impacto = $remitente->aguante + $trabajo->dificultad;
+    $impacto = $remitente->conocimiento + $trabajo->dificultad;
 
     if ($remitente->asignatura == $trabajo->asignatura) {
-        $nuevo_aguante = $destinatario->aguante - ($impacto - $destinatario->resistencia) * 2;
-    } else {
-        $nuevo_aguante = $destinatario->aguante - ($impacto - $destinatario->resistencia);
+        $impacto *= 2;
     }
 
-    //Se pone 0.6 por que en vez de restar el 40%, es mas fácil coger el resto, que en este caso sería el 60%
+    //se hace 0.6 por que así se reduce un 40%
     if ($destinatario->asignatura == $trabajo->asignatura) {
-        $nuevo_aguante = $destinatario->aguante - ($impacto - $destinatario->resistencia) / 0.6;
+        $impacto *= 0.6;
     }
+
+    $nuevo_aguante = $destinatario->aguante - ($impacto - $destinatario->resistencia);
 
     return $nuevo_aguante;
 }
